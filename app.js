@@ -6,8 +6,10 @@ const convertButton = document.querySelector('.btn');
 
 const nodoPadre = document.querySelector('.newText');
 const nodoHijo = document.createElement('p');
+nodoPadre.appendChild(nodoHijo);
 
 function convert(e){
-  nodoHijo.innerHTML = oldText;
-  nodoPadre.appendChild(nodoHijo);
-}
+  let newText = oldText.slice(0, numCharacters);
+  let nodoTexto = document.createTextNode(newText);
+  nodoHijo.appendChild(nodoTexto);
+};
