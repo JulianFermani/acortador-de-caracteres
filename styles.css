@@ -2,3 +2,12 @@
 .newText{
   width: auto;
 }
+
+.new-text{
+  width: 100%;
+  word-break: break-all;
+}
+
+.bi-brightness-high{
+  display: none;
+}
