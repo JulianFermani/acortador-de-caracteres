@@ -3,6 +3,11 @@
   width: auto;
 }
 
+.btn:hover{
+  background: none !important;
+  color: #747d84 !important;
+}
+
 .new-text{
   width: 100%;
   word-break: break-all;
@@ -10,4 +15,9 @@
 
 .bi-brightness-high{
   display: none;
+  cursor: pointer;
+}
+
+.bi-moon-fill{
+  cursor: pointer;
 }
