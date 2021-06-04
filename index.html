@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,19 +19,22 @@
     <div class="row">
       <form class="form" action="index.html" method="post">
       <div class="col-12 col-md-12">
-        <div class="input-group mb-3 mt-5">
+        <p class="text-danger mb-0 validationText visually-hidden">Por favor, inserte un texto valido</p>
+        <div class="formText input-group mb-3 mt-5">
           <span class="input-group-text">Ingrese su texto</span>
           <textarea class="oldText form-control" aria-label="With textarea"></textarea>
         </div>
       </div>
       <div class="col-12 col-md-12">
+        <p class="text-danger mb-0 validationNumber visually-hidden">Por favor, inserte un numero valido</p>
         <div class="input-group mb-3">
-          <input type="number" class="number form-control border-secondary" placeholder="Ingrese el número de caracteres que desea" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="buttonConvert btn btn-outline-secondary" type="submit" id="button-addon2" >Convertir</button>
+          <input type="number" class="number form-control border-secondary rounded" placeholder="Ingrese el número de caracteres" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <button class="buttonConvert btn btn-outline-secondary ms-1 rounded" type="submit" id="button-addon2" >Convertir</button>
         </div>
         <div class="mb-2 mt-1">
           <button type="button" class="btn buttonCopy  btn-primary btn-sm">Copiar texto</button>
         </div>
+        <p class="text-completed fw-light mb-0 fs-6 visually-hidden">¡Su texto ha sido copiado correctamente!</p>
       </div>
       <div class="col-12 col-md-12">
         <div class="d-flex flex-wrap input-group">

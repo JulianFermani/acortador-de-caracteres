@@ -1,5 +1,4 @@
 
-
 const form = document.querySelector('.form');
 
 // Boton para convertir el texto
@@ -9,6 +8,11 @@ const convertButton = document.querySelector('.buttonConvert');
 const nodoPadre = document.querySelector('.newText');
 let nodoHijo = document.querySelector('.new-text');
 
+const textValidation = document.querySelector('.validationText');
+const numberValidation = document.querySelector('.validationNumber');
+
+const formText = document.querySelector('.formText');
+const numberInput = document.querySelector('.number');
 
 form.addEventListener('submit', function(event){
   // Función que cancela el evento de recargar la página
@@ -21,6 +25,19 @@ form.addEventListener('submit', function(event){
 
   // Añado el parrafo en el div
   nodoPadre.appendChild(nodoHijo);
+
+  if (oldText || numCharacters == "") {
+    event.preventDefault();
+
+    textValidation.classList.remove('visually-hidden');
+    numberValidation.classList.remove('visually-hidden');
+
+    formText.classList.remove('mt-5');
+    textValidation.classList.add('mt-5');
+
+    formText.classList.add('borderValidation');
+    numberInput.classList.add('border-danger');
+  };
 
   // Funcion que convierte el oldText a newText
   let newText = oldText.slice(0, numCharacters);
@@ -42,6 +59,7 @@ const body = document.querySelector('.body');
 const oldTextStyles = document.querySelector('.oldText');
 const totallyOfCharacters = document.querySelector('.number');
 const newTextStyles = document.querySelector('.newTextStyles');
+const textCompleted = document.querySelector('.text-completed');
 
  // Funcion que hace el modo noche
 function nightMode(){
@@ -55,6 +73,7 @@ function nightMode(){
     totallyOfCharacters.classList.add('text-white');
     newTextStyles.classList.add('bg-transparent');
     nodoHijo.classList.add('text-white');
+    textCompleted.classList.add('text-white');
   };
 };
 
@@ -72,15 +91,27 @@ function lightMode(){
     convertButton.classList.add('bg-transparent');
     nodoHijo.classList.add('text-dark');
     nodoHijo.classList.remove('text-white');
+    textCompleted.classList.add('text-dark');
+    textCompleted.classList.remove('text-white');
   };
 };
 
+// Botón para copiar el texto
 const buttonCopy = document.querySelector('.buttonCopy');
 
+// Evento que le doy al botón para que ejecute
+// la función
 buttonCopy.addEventListener('click', copyToClipboard);
 
+// Función para copiar el texto
+// al portapapel
 function copyToClipboard(){
   console.log('copiado ashee');
-  nodoHijo.select();
-  document.execComand('copy');
+  let seleccion = document.createRange();
+  seleccion.selectNodeContents(nodoHijo);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(seleccion);
+  let res = document.execCommand('copy');
+  window.getSelection().removeRange(seleccion);
+  textCompleted.classList.remove('visually-hidden');
 };

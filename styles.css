@@ -21,3 +21,37 @@
 .bi-moon-fill{
   cursor: pointer;
 }
+
+body{
+  transition: background 1s ease;
+}
+
+
+@keyframes escalaTexto{
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.50;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.validationText, .validationNumber{
+  font-size: 0.8rem;
+  animation-name: escalaTexto;
+  animation-duration: 20s;
+}
+
+.borderValidation{
+  border: solid 1.3px #dc3545 !important;
+  border-radius: 5px;
+}
