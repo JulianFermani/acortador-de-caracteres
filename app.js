@@ -1,39 +1,33 @@
 
- // Variables basicas del DOM
-const oldText = document.querySelector('.oldText').value;
-const numCharacters = document.querySelector('.number').value;
-const convertButton = document.querySelector('.btn');
 
- // Creando y añadiendo nodos
+const form = document.querySelector('.form');
+
+// Boton para convertir el texto
+const convertButton = document.querySelector('.buttonConvert');
+
+// Nodos para poner en la página
 const nodoPadre = document.querySelector('.newText');
-const nodoHijo = document.querySelector('.new-text');
-nodoPadre.appendChild(nodoHijo);
+let nodoHijo = document.querySelector('.new-text');
 
- // Funcion que convierte el oldText a newText
-function convert(e){
+
+form.addEventListener('submit', function(event){
+  // Función que cancela el evento de recargar la página
+  event.preventDefault();
+
+  // Tomo los valores del texto a convertir y la cantidad
+  // de caracteres
+  const oldText = document.querySelector('.oldText').value;
+  const numCharacters = document.querySelector('.number').value;
+
+  // Añado el parrafo en el div
+  nodoPadre.appendChild(nodoHijo);
+
+  // Funcion que convierte el oldText a newText
   let newText = oldText.slice(0, numCharacters);
   let nodoTexto = document.createTextNode(newText);
   nodoHijo.appendChild(nodoTexto);
-};
 
- // Botón para copiar todo (en proceso)
-// document.querySelector('.buttonCopy').addEventListener('click', copy);
-//
-// function copy() {
-//   const prueba = document.querySelector('.prueba');
-//   const seleccion = document.createRange();
-//   seleccion.selectNodeContents(prueba);
-//   window.getSelection().removeAllRanges();
-//   window.getSelection().addRange(seleccion);
-//   try {
-//     const res = document.execCommand('copy');
-//   } catch (e) {
-//     window.getSelection().removeRange(seleccion);
-//   } finally {
-//
-//   };
-// };
-//
+});
 
  // Variables de modo noche y día
 const moon = document.querySelector('.bi-moon-fill');
@@ -52,32 +46,41 @@ const newTextStyles = document.querySelector('.newTextStyles');
  // Funcion que hace el modo noche
 function nightMode(){
   if (moon) {
-    body.style.backgroundColor = '#060111';
+    body.classList.add('bg-dark');
     moon.style.display = 'none';
     sun.style.display = 'block';
-    convertButton.style.background = 'linear-gradient(to right, #ad5389, #3c1053)';
-    convertButton.style.borderColor = '#ffffff';
-    convertButton.style.color = '#ffffff';
-    oldTextStyles.style.backgroundColor = 'transparent';
-    oldTextStyles.style.color = '#ffffff';
-    totallyOfCharacters.style.backgroundColor = 'transparent';
-    totallyOfCharacters.style.color = '#ffffff';
-    newTextStyles.style.backgroundColor = 'transparent';
-    nodoHijo.style.color = '#ffffff';
+    oldTextStyles.classList.add('bg-transparent');
+    oldTextStyles.classList.add('text-white');
+    totallyOfCharacters.classList.add('bg-transparent');
+    totallyOfCharacters.classList.add('text-white');
+    newTextStyles.classList.add('bg-transparent');
+    nodoHijo.classList.add('text-white');
   };
 };
 
  // Funcion que convierte el modo dia
 function lightMode(){
   if (sun) {
-    body.style.backgroundColor = '#ffffff';
+    body.classList.remove('bg-dark');
+    body.classList.add('bg-light');
     sun.style.display = 'none';
     moon.style.display = 'block';
-    oldTextStyles.style.color = '#000000';
-    totallyOfCharacters.style.color = '#000000';
-    nodoHijo.style.color = '#000000';
-    convertButton.style.background = 'transparent';
-    convertButton.style.color = '#747d84';
-    convertButton.style.borderColor = '#747d84';
+    oldTextStyles.classList.add('text-dark');
+    oldTextStyles.classList.remove('text-white');
+    totallyOfCharacters.classList.add('text-dark');
+    totallyOfCharacters.classList.remove('text-white');
+    convertButton.classList.add('bg-transparent');
+    nodoHijo.classList.add('text-dark');
+    nodoHijo.classList.remove('text-white');
   };
+};
+
+const buttonCopy = document.querySelector('.buttonCopy');
+
+buttonCopy.addEventListener('click', copyToClipboard);
+
+function copyToClipboard(){
+  console.log('copiado ashee');
+  nodoHijo.select();
+  document.execComand('copy');
 };
