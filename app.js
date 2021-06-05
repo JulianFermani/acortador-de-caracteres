@@ -1,4 +1,5 @@
 
+// Selecciono el form
 const form = document.querySelector('.form');
 
 // Boton para convertir el texto
@@ -8,12 +9,16 @@ const convertButton = document.querySelector('.buttonConvert');
 const nodoPadre = document.querySelector('.newText');
 let nodoHijo = document.querySelector('.new-text');
 
+// Mensajes de validación para inputs
 const textValidation = document.querySelector('.validationText');
 const numberValidation = document.querySelector('.validationNumber');
 
+// Inputs para validar
 const formText = document.querySelector('.formText');
 const numberInput = document.querySelector('.number');
 
+// Cuando se envie el formulario, quiero que se
+// ejecute la función
 form.addEventListener('submit', function(event){
   // Función que cancela el evento de recargar la página
   event.preventDefault();
@@ -26,23 +31,90 @@ form.addEventListener('submit', function(event){
   // Añado el parrafo en el div
   nodoPadre.appendChild(nodoHijo);
 
-  if (oldText || numCharacters == "") {
+  // Si oldText y numCharacters es igual a nada
+  if (oldText == "" && numCharacters == "") {
+    // Evento que cancela el comportamiento
+    // por defecto del navegador
     event.preventDefault();
 
+    // Le elimino la clase que oculta el mensaje
+    // de que rellene los inputs
     textValidation.classList.remove('visually-hidden');
     numberValidation.classList.remove('visually-hidden');
 
+    // Elimino el margin del oldText
+    // y se lo doy al texto de validacion
     formText.classList.remove('mt-5');
     textValidation.classList.add('mt-5');
 
+    // Le agrego los bordes a los inputs
+    // que falten rellenar
     formText.classList.add('borderValidation');
     numberInput.classList.add('border-danger');
+
+    // Si oldText es igual a vacio
+  } else if(oldText == ""){
+    // Elimino la clase que oculta
+    // el mensaje de validación del texto
+    textValidation.classList.remove('visually-hidden');
+
+    // Elimino el margin del oldText
+    // y se lo doy al texto de validacion
+    formText.classList.remove('mt-5');
+    textValidation.classList.add('mt-5');
+
+    // Le añado el borde al input de texto
+    formText.classList.add('borderValidation');
+
+    // Elimino la clase que le da el borde rojo y oculto
+    // el texto de validación
+    numberInput.classList.remove('border-danger');
+    numberValidation.classList.add('visually-hidden');
+    // Si numCharacters es igual a vacio
+  } else if (numCharacters == "") {
+    // Elimino la clase que oculta el mensaje
+    // de validación del input de numeros
+    numberValidation.classList.remove('visually-hidden');
+
+    // Le doy borde rojo al input de numeros
+    numberInput.classList.add('border-danger');
+
+    // Elimino el borde del input del texto, oculto
+    // el texto y le doy margin al oldText
+    formText.classList.remove('borderValidation');
+    textValidation.classList.add('visually-hidden');
+    formText.classList.add('mt-5');
+
+    // Si ninguna de las anteriores se cumple
+  }else {
+    // Le agrego una clase que oculta
+    // los mensajes de validación
+    textValidation.classList.add('visually-hidden');
+    numberValidation.classList.add('visually-hidden');
+
+    // Elimino los bordes de los inputs
+    formText.classList.remove('borderValidation');
+    numberValidation.classList.remove('border-danger');
+
+    // Agrego margin top al oldText
+    formText.classList.add('mt-5');
   };
 
   // Funcion que convierte el oldText a newText
   let newText = oldText.slice(0, numCharacters);
   let nodoTexto = document.createTextNode(newText);
   nodoHijo.appendChild(nodoTexto);
+
+
+  const buttonReset = document.querySelector('.buttonReset');
+
+  buttonReset.addEventListener('click', resetInputs);
+
+  function resetInputs() {
+    oldText.innerHTML = "a";
+    numCharacters.innerHTML = 2;
+    nodoHijo.innerHTML = "";
+  };
 
 });
 
@@ -64,9 +136,9 @@ const textCompleted = document.querySelector('.text-completed');
  // Funcion que hace el modo noche
 function nightMode(){
   if (moon) {
-    body.classList.add('bg-dark');
     moon.style.display = 'none';
     sun.style.display = 'block';
+    body.classList.add('bg-dark');
     oldTextStyles.classList.add('bg-transparent');
     oldTextStyles.classList.add('text-white');
     totallyOfCharacters.classList.add('bg-transparent');
@@ -80,10 +152,10 @@ function nightMode(){
  // Funcion que convierte el modo dia
 function lightMode(){
   if (sun) {
-    body.classList.remove('bg-dark');
-    body.classList.add('bg-light');
     sun.style.display = 'none';
     moon.style.display = 'block';
+    body.classList.remove('bg-dark');
+    body.classList.add('bg-light');
     oldTextStyles.classList.add('text-dark');
     oldTextStyles.classList.remove('text-white');
     totallyOfCharacters.classList.add('text-dark');
@@ -106,7 +178,6 @@ buttonCopy.addEventListener('click', copyToClipboard);
 // Función para copiar el texto
 // al portapapel
 function copyToClipboard(){
-  console.log('copiado ashee');
   let seleccion = document.createRange();
   seleccion.selectNodeContents(nodoHijo);
   window.getSelection().removeAllRanges();
