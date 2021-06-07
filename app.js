@@ -111,9 +111,9 @@ form.addEventListener('submit', function(event){
   buttonReset.addEventListener('click', resetInputs);
 
   function resetInputs() {
-    oldText.innerHTML = "a";
-    numCharacters.innerHTML = 2;
+    form.reset();
     nodoHijo.innerHTML = "";
+
   };
 
 });
@@ -132,6 +132,7 @@ const oldTextStyles = document.querySelector('.oldText');
 const totallyOfCharacters = document.querySelector('.number');
 const newTextStyles = document.querySelector('.newTextStyles');
 const textCompleted = document.querySelector('.text-completed');
+const textNothingToCopy = document.querySelector('.textNothingToCopy');
 
  // Funcion que hace el modo noche
 function nightMode(){
@@ -146,6 +147,7 @@ function nightMode(){
     newTextStyles.classList.add('bg-transparent');
     nodoHijo.classList.add('text-white');
     textCompleted.classList.add('text-white');
+    textNothingToCopy.classList.add('text-white');
   };
 };
 
@@ -165,6 +167,8 @@ function lightMode(){
     nodoHijo.classList.remove('text-white');
     textCompleted.classList.add('text-dark');
     textCompleted.classList.remove('text-white');
+    textNothingToCopy.classList.add('text-dark');
+    textNothingToCopy.classList.remove('text-white');
   };
 };
 
@@ -178,11 +182,23 @@ buttonCopy.addEventListener('click', copyToClipboard);
 // Función para copiar el texto
 // al portapapel
 function copyToClipboard(){
-  let seleccion = document.createRange();
-  seleccion.selectNodeContents(nodoHijo);
-  window.getSelection().removeAllRanges();
-  window.getSelection().addRange(seleccion);
-  let res = document.execCommand('copy');
-  window.getSelection().removeRange(seleccion);
-  textCompleted.classList.remove('visually-hidden');
+  if (nodoHijo.innerHTML == ""){
+    textNothingToCopy.classList.remove('visually-hidden');
+    textCompleted.classList.add('visually-hidden');
+  }else {
+    let seleccion = document.createRange();
+    seleccion.selectNodeContents(nodoHijo);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(seleccion);
+    let res = document.execCommand('copy');
+    window.getSelection().removeRange(seleccion);
+    textCompleted.classList.remove('visually-hidden');
+    textNothingToCopy.classList.add('visually-hidden');
+
+    function eliminarTextoCompletado() {
+      textCompleted.classList.add('visually-hidden');
+    };
+
+    let timeoutTextoCompletado = window.setTimeout(eliminarTextoCompletado, 10000);
+  };
 };
